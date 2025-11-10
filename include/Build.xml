@@ -7,6 +7,7 @@
 		<compilerflag value="-Iflac/include" />
 		<compilerflag value="-Iflac/src/libFLAC/include" />
 
+		<compilerflag value="-DFLAC__HAS_OGG=0" />
 		<compilerflag value="-DFLAC__NO_DLL" if="windows" />
 		<compilerflag value="-DFLAC_API_EXPORTS" if="windows" />
 		<compilerflag value="-DFLAC_DEBUG=0" />

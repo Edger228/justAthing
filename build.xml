@@ -10,6 +10,7 @@
 		<compilerflag value="-I${hxflac_folder}/flac/include" />
 		<compilerflag value="-I${hxflac_folder}/flac/src/libFLAC/include" />
 
+		<compilerflag value="-DFLAC__HAS_OGG=0" />
 		<compilerflag value="-DFLAC__NO_DLL" if="windows" />
 		<compilerflag value="-DFLAC_API_EXPORTS" if="windows" />
 		<compilerflag value="-DHAVE_CONFIG_H=1" />
@@ -32,6 +33,7 @@
 		<compilerflag value="-I${hxflac_folder}/flac/include" />
 		<compilerflag value="-I${hxflac_folder}/flac/src/libFLAC/include" />
 
+		<compilerflag value="-DFLAC__HAS_OGG=0" />
 		<compilerflag value="-DFLAC__NO_DLL" if="windows" />
 		<compilerflag value="-DFLAC_API_EXPORTS" if="windows" />
 		<compilerflag value="-DHAVE_CONFIG_H=1" />
