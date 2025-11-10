@@ -36,6 +36,7 @@ jobs:
           haxelib install flixel
           haxelib install lime
           haxelib install hxcpp
+          haxelib git hxflac https://github.com/GreenColdTea/justAthing.git
           haxelib run lime setup flixel
           haxelib list
           
@@ -65,6 +66,7 @@ jobs:
           haxelib install flixel
           haxelib install lime
           haxelib install hxcpp
+          haxelib git hxflac https://github.com/GreenColdTea/justAthing.git
           haxelib run lime setup flixel
           haxelib list
 
@@ -93,6 +95,7 @@ jobs:
           haxelib install flixel
           haxelib install lime
           haxelib install hxcpp
+          haxelib git hxflac https://github.com/GreenColdTea/justAthing.git
           haxelib run lime setup flixel
           haxelib list
 
