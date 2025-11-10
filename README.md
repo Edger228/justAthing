@@ -1,7 +1,7 @@
 # HXFLAC
 
 <p align="center">  
-    <img src="https://img.shields.io/github/repo-size/GreenColdTea/hxopus" />
+    <img src="https://img.shields.io/github/repo-size/GreenColdTea/hxflac" />
     <img src="https://badgen.net/badge/license/MIT/green" />
 </p>
 
