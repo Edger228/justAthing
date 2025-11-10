@@ -1,4 +1,4 @@
-# HXFLAC
+# HxFLAC
 
 <p align="center">  
     <img src="https://img.shields.io/github/repo-size/GreenColdTea/hxflac" />
@@ -99,9 +99,9 @@ var version = FLACHelper.getVersionString();
 
 | Format | Status | Output |
 |--------|--------|--------|
-| **8-bit FLAC** | ✅ | 8-bit PCM |
-| **16-bit FLAC** | ✅ | 16-bit PCM |
-| **24-bit FLAC** | ✅ | 24-bit PCM |
+| **8-bit FLAC** |  ✅ | 8-bit PCM |
+| **16-bit FLAC** |  ✅ | 16-bit PCM |
+| **24-bit FLAC** |  ✅ | 24-bit PCM |
 
 ### Credits
 
