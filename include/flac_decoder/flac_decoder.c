@@ -16,16 +16,6 @@ static size_t get_bytes_per_sample(unsigned bits_per_sample) {
     return (bits_per_sample + 7) / 8;
 }
 
-static void convert_samples_8bit(const FLAC__int32* const* buffers, unsigned channels, unsigned samples, unsigned char** output) 
-{
-    for (unsigned i = 0; i < samples; i++) {
-        for (unsigned ch = 0; ch < channels; ch++) {
-            FLAC__int8 sample = (FLAC__int8)buffers[ch][i];
-            *(*output)++ = (unsigned char)(sample + 128);
-        }
-    }
-}
-
 static void convert_samples_16bit(const FLAC__int32* const* buffers, unsigned channels, unsigned samples, unsigned char** output) 
 {
     for (unsigned i = 0; i < samples; i++) {
@@ -133,9 +123,6 @@ FLAC__StreamDecoderWriteStatus write_callback(const FLAC__StreamDecoder* decoder
 
     unsigned char* output = context->pcm_buffer + context->pcm_buffer_size;
     switch (bits_per_sample) {
-        case 8:
-            convert_samples_8bit(buffers, channels, samples, &output);
-            break;
         case 16:
             convert_samples_16bit(buffers, channels, samples, &output);
             break;

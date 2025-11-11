@@ -68,7 +68,7 @@ Hxflac supports reading FLAC metadata including:
 
 Title, Artist, Album
 Genre, Year, Track Number
-Comments and custom fields
+Comments and etc.
 
 ```hx
 var metadata = FLACHelper.getMetadataFromFile("path/to/your/sound.flac");

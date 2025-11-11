@@ -175,12 +175,7 @@ class FLACHelper {
         var pcmData:ByteArray;
         var frameCount:Int;
 
-        switch(decodeResult.bitsPerSample) {
-            case 8:
-                format = "byte";
-                pcmData = ByteArray.fromBytes(decodeResult.data);
-                frameCount = Math.floor(decodeResult.data.length / decodeResult.channels);
-                
+        switch(decodeResult.bitsPerSample) {     
             case 16:
                 format = "short";
                 pcmData = ByteArray.fromBytes(decodeResult.data);
