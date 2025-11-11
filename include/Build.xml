@@ -12,10 +12,16 @@
 		<compilerflag value="-DFLAC_API_EXPORTS" if="windows" />
 		<compilerflag value="-DFLAC_DEBUG=0" />
 		<compilerflag value="-DHAVE_CONFIG_H=1" />
-		
-		<compilerflag value="-D_WIN32" if="windows" />
+
+		<compilerflag value="-D_CRT_SECURE_NO_WARNINGS" if="windows" />
 		<compilerflag value="-D_CRT_NONSTDC_NO_DEPRECATE" if="windows" />
 		<compilerflag value="-DNO_PRECOMPILED_HEADERS" if="windows" />
+		<compilerflag value="-D_WIN32" if="windows" />
+
+		<compilerflag value="-DHAVE_UNISTD_H=1" if="linux || macos" />
+		<compilerflag value="-DHAVE_FCNTL_H=1" if="linux || macos" />
+		<compilerflag value="-DHAVE_SYS_TYPES_H=1" if="linux || macos" />
+		<compilerflag value="-DHAVE_SYS_STAT_H=1" if="linux || macos" />
 
 		<file name="flac/src/libFLAC/bitmath.c" />
 		<file name="flac/src/libFLAC/bitreader.c" />
@@ -37,6 +43,7 @@
 		<file name="flac/src/libFLAC/metadata_object.c" />
         
         <file name="flac/src/share/win_utf8_io/win_utf8_io.c" if="windows"/>
+		<file name="${hxflac_folder}/flac/src/libFLAC/float.c" unless="windows" />
 	</files>
 
 	<set name="SLIBEXT" value=".lib" if="windows" />
