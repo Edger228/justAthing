@@ -63,6 +63,7 @@ jobs:
       - uses: krdlab/setup-haxe@master
         with:
           haxe-version: 4.3.7
+
       - name: Install Haxelib
         run: |
           haxelib setup ~/haxelib
@@ -72,6 +73,7 @@ jobs:
           haxelib git hxflac https://github.com/GreenColdTea/justAthing.git
           haxelib run lime setup flixel
           haxelib list
+
       - name: Compile Test Project Mac
         run: haxelib run lime build ${{ github.workspace }}/test/Project.xml mac
       - name: Publish Mac Artifact
@@ -87,8 +89,16 @@ jobs:
       - uses: krdlab/setup-haxe@master
         with:
           haxe-version: 4.3.7
-      - name: Install Android SDK and setup environment
+
+      - name: Setup Android NDK
+        uses: nttld/setup-ndk@main
+        id: setup-ndk
+        with:
+          ndk-version: r28
+
+      - name: Setup Android SDK
         uses: android-actions/setup-android@v2
+
       - name: Install Haxelib
         run: |
           haxelib setup ~/haxelib
@@ -99,6 +109,15 @@ jobs:
           haxelib git hxflac https://github.com/GreenColdTea/justAthing.git
           haxelib run lime setup android
           haxelib list
+
+      - name: Setup Lime
+        run: |
+          haxelib run lime setup -alias -y
+          haxelib run lime config JAVA_HOME $JAVA_HOME_17_X64
+          haxelib run lime config ANDROID_SDK $ANDROID_HOME
+          haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
+          haxelib run lime config ANDROID_SETUP true
+          
       - name: Compile Test Project Android
         run: haxelib run lime build ${{ github.workspace }}/test/Project.xml android
       - name: Publish Android Artifact
@@ -124,7 +143,7 @@ jobs:
           haxelib run lime setup ios
           haxelib list
       - name: Compile Test Project iOS
-        run: haxelib run lime build ${{ github.workspace }}/test/Project.xml ios
+        run: haxelib run lime build ${{ github.workspace }}/test/Project.xml ios-simulator
       - name: Publish iOS Artifact
         uses: actions/upload-artifact@main
         with:
