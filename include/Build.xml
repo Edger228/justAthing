@@ -43,7 +43,6 @@
 		<file name="flac/src/libFLAC/metadata_object.c" />
         
         <file name="flac/src/share/win_utf8_io/win_utf8_io.c" if="windows"/>
-		<file name="${hxflac_folder}/flac/src/libFLAC/float.c" unless="windows" />
 	</files>
 
 	<set name="SLIBEXT" value=".lib" if="windows" />
