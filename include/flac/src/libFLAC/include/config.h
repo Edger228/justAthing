@@ -28,6 +28,11 @@
 #define HAVE_FCNTL_H 0
 #define HAVE_SYS_TYPES_H 0
 #define HAVE_SYS_STAT_H 0
+#define HAVE_FSEEKO 0
+#define HAVE_FTELLO 0
+#define HAVE_LRINT 0
+#define HAVE_LRINTF 0
+#define HAVE_LROUND 0
 
 #else
 /* Linux/macOS configuration */
@@ -35,6 +40,11 @@
 #define HAVE_FCNTL_H 1
 #define HAVE_SYS_TYPES_H 1
 #define HAVE_SYS_STAT_H 1
+#define HAVE_FSEEKO 1
+#define HAVE_FTELLO 1
+#define HAVE_LRINT 1
+#define HAVE_LRINTF 1
+#define HAVE_LROUND 1
 
 #endif
 
