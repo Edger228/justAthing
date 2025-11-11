@@ -1,11 +1,5 @@
-/* necessary preprocessor flags */
-
 #ifndef CONFIG_H
 #define CONFIG_H
-
-/* basic Windows configuration */
-#define _WIN32 1
-#define _CRT_SECURE_NO_WARNINGS 1
 
 /* ver. info */
 #define PACKAGE_VERSION "1.5.0"
@@ -23,5 +17,25 @@
 
 /* disable assembly */
 #define FLAC__NO_ASM 1
+
+/* Platform-specific configurations */
+#ifdef _WIN32
+/* Windows configuration */
+#define _CRT_SECURE_NO_WARNINGS 1
+
+/* Windows doesn't have these */
+#define HAVE_UNISTD_H 0
+#define HAVE_FCNTL_H 0
+#define HAVE_SYS_TYPES_H 0
+#define HAVE_SYS_STAT_H 0
+
+#else
+/* Linux/macOS configuration */
+#define HAVE_UNISTD_H 1
+#define HAVE_FCNTL_H 1
+#define HAVE_SYS_TYPES_H 1
+#define HAVE_SYS_STAT_H 1
+
+#endif
 
 #endif /* CONFIG_H */

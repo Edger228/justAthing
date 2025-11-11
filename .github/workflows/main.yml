@@ -47,7 +47,7 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: linuxBuild
-          path: 'test/export/release/linux/bin'
+          path: ${{ github.workspace }}/test/export/release/linux/bin
 
   buildWindows:
     runs-on: windows-latest
@@ -77,7 +77,7 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: windowsBuild
-          path: test/export/release/windows/bin
+          path: ${{ github.workspace }}/test/export/release/windows/bin
   buildMac:
     runs-on: macos-latest
 
@@ -106,4 +106,4 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: macBuild
-          path: export/release/macos/bin
+          path: ${{ github.workspace }}/test/export/release/macos/bin
