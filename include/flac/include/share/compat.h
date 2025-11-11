@@ -29,6 +29,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* libFLAC - Free Lossless Audio Codec library */
 #ifndef FLAC__SHARE__COMPAT_H
 #define FLAC__SHARE__COMPAT_H
 
@@ -55,7 +56,7 @@
 #endif
 #endif
 #else
-#ifndef HAVE_FSEEKO
+#if !defined(HAVE_FSEEKO) && !defined(__APPLE__) && !defined(__linux__)
 #define fseeko fseek
 #define ftello ftell
 #define FLAC__off_t long
