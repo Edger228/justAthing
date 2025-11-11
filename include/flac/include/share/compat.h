@@ -12,7 +12,7 @@
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
  *
- * - Neither the name of the Xiph.org Foundation nor the names of its
+ * - Neither the name of the Xiph.Org Foundation nor the names of its
  * contributors may be used to endorse or promote products derived from
  * this software without specific prior written permission.
  *
@@ -29,34 +29,26 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* This is the preferred location of all CPP hackery to make $random_compiler
- * work like something approaching a C99 (or maybe more accurately GNU99)
- * compiler.
- *
- * It is assumed that this header will be included after "config.h".
- */
-
 #ifndef FLAC__SHARE__COMPAT_H
 #define FLAC__SHARE__COMPAT_H
 
 #include <stddef.h>
 #include <stdarg.h>
 
-#if defined _WIN32 && !defined __CYGWIN__
-/* where MSVC puts unlink() */
-# include <io.h>
+#if defined(_WIN32) && !defined(__CYGWIN__)
+#include <io.h>
 #else
-# include <unistd.h>
+#include <unistd.h> //for unix platforms
 #endif
 
-#if defined _MSC_VER || defined __BORLANDC__ || defined __MINGW32__
-#include <sys/types.h> /* for off_t */
-#define FLAC__off_t __int64 /* use this instead of off_t to fix the 2 GB limit */
+#if defined(_MSC_VER) || defined(__BORLANDC__) || defined(__MINGW32__)
+#include <sys/types.h>
+#define FLAC__off_t __int64
 #define FLAC__OFF_T_MAX INT64_MAX
-#if !defined __MINGW32__
+#if !defined(__MINGW32__)
 #define fseeko _fseeki64
 #define ftello _ftelli64
-#else /* MinGW */
+#else
 #if !defined(HAVE_FSEEKO)
 #define fseeko fseeko64
 #define ftello ftello64
@@ -88,10 +80,9 @@
 #define inline __inline
 #endif
 
-#if defined __INTEL_COMPILER || (defined _MSC_VER && defined _WIN64)
-/* MSVS generates VERY slow 32-bit code with __restrict */
+#if defined(__INTEL_COMPILER) || (defined(_MSC_VER) && defined(_WIN64))
 #define flac_restrict __restrict
-#elif defined __GNUC__
+#elif defined(__GNUC__)
 #define flac_restrict __restrict__
 #else
 #define flac_restrict
@@ -99,10 +90,10 @@
 
 #define FLAC__U64L(x) x##ULL
 
-#if defined _MSC_VER || defined __MINGW32__
+#if defined(_MSC_VER) || defined(__MINGW32__)
 #define FLAC__STRCASECMP _stricmp
 #define FLAC__STRNCASECMP _strnicmp
-#elif defined __BORLANDC__
+#elif defined(__BORLANDC__)
 #define FLAC__STRCASECMP stricmp
 #define FLAC__STRNCASECMP strnicmp
 #else
@@ -110,57 +101,54 @@
 #define FLAC__STRNCASECMP strncasecmp
 #endif
 
-#if defined _MSC_VER || defined __MINGW32__ || defined __EMX__
-#include <fcntl.h> /* for _O_BINARY */
-#if defined _MSC_VER || defined __MINGW32__
-#include <io.h> /* for _setmode() */
+#if defined(_WIN32)
+#include <fcntl.h>
+#if defined(_MSC_VER) || defined(__MINGW32__)
+#include <io.h>
 #endif
 #else
-#include <unistd.h> /* for chown(), unlink() */
+#include <unistd.h>
 #endif
 
-#if defined _MSC_VER || defined __BORLANDC__ || defined __MINGW32__
-#if defined __BORLANDC__
-#include <utime.h> /* for utime() */
+#if defined(_MSC_VER) || defined(__BORLANDC__) || defined(__MINGW32__)
+#if defined(__BORLANDC__)
+#include <utime.h>
 #else
-#include <sys/utime.h> /* for utime() */
+#include <sys/utime.h>
 #endif
 #else
 #if defined(_POSIX_C_SOURCE) && (_POSIX_C_SOURCE >= 200809L)
 #include <fcntl.h>
 #else
-#include <sys/types.h> /* some flavors of BSD (like OS X) require this to get time_t */
-#include <utime.h> /* for utime() */
+#include <sys/types.h>
+#include <utime.h>
 #endif
 #endif
 
-#if defined _MSC_VER
-#  if _MSC_VER >= 1800
-#    include <inttypes.h>
-#  elif _MSC_VER >= 1600
-/* Visual Studio 2010 has decent C99 support */
-#    include <stdint.h>
-#    define PRIu64 "llu"
-#    define PRId64 "lld"
-#    define PRIx64 "llx"
-#  else
-#    include <limits.h>
-#    ifndef UINT32_MAX
-#      define UINT32_MAX _UI32_MAX
-#    endif
-#    define PRIu64 "I64u"
-#    define PRId64 "I64d"
-#    define PRIx64 "I64x"
-#  endif
-#  if defined(_USING_V110_SDK71_) && !defined(_DLL)
-#    pragma message("WARNING: This compile will NOT FUNCTION PROPERLY on Windows XP. See comments in include/share/compat.h for details")
+#if defined(_MSC_VER)
+#if _MSC_VER >= 1800
+#include <inttypes.h>
+#elif _MSC_VER >= 1600
+#include <stdint.h>
+#define PRIu64 "llu"
+#define PRId64 "lld"
+#define PRIx64 "llx"
+#else
+#include <limits.h>
+#ifndef UINT32_MAX
+#define UINT32_MAX _UI32_MAX
+#endif
+#define PRIu64 "I64u"
+#define PRId64 "I64d"
+#define PRIx64 "I64x"
+#endif
+#if defined(_USING_V110_SDK71_) && !defined(_DLL)
+#pragma message("WARNING: This compile will NOT FUNCTION PROPERLY on Windows XP. See comments in include/share/compat.h for details")
 #define FLAC__USE_FILELENGTHI64
-#  endif
-#endif /* defined _MSC_VER */
+#endif
+#endif
 
 #ifdef _WIN32
-/* All char* strings are in UTF-8 format. Added to support Unicode files on Windows */
-
 #include "share/win_utf8_io.h"
 #define flac_printf printf_utf8
 #define flac_fprintf fprintf_utf8
@@ -171,31 +159,27 @@
 #define flac_unlink unlink_utf8
 #define flac_rename rename_utf8
 #define flac_stat stat64_utf8
-
 #else
-
 #define flac_printf printf
 #define flac_fprintf fprintf
 #define flac_vfprintf vfprintf
-
 #define flac_fopen fopen
 #define flac_chmod chmod
 #define flac_unlink unlink
 #define flac_rename rename
 #define flac_stat stat
-
 #if defined(_POSIX_C_SOURCE) && (_POSIX_C_SOURCE >= 200809L)
-#define flac_utime(a, b) utimensat (AT_FDCWD, a, *b, 0)
+#define flac_utime(a, b) utimensat(AT_FDCWD, a, *b, 0)
 #else
 #define flac_utime utime
 #endif
 #endif
 
 #ifdef _WIN32
-#define flac_stat_s __stat64 /* stat struct */
+#define flac_stat_s __stat64
 #define flac_fstat _fstat64
 #else
-#define flac_stat_s stat /* stat struct */
+#define flac_stat_s stat
 #define flac_fstat fstat
 #endif
 
@@ -210,12 +194,6 @@
 #define M_PI 3.14159265358979323846
 #endif
 
-/* FLAC needs to compile and work correctly on systems with a normal ISO C99
- * snprintf as well as Microsoft Visual Studio which has an non-standards
- * conformant snprint_s function.
- *
- * This function wraps the MS version to behave more like the ISO version.
- */
 #ifdef __cplusplus
 extern "C" {
 #endif
