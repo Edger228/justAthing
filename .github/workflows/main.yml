@@ -102,9 +102,11 @@ jobs:
       - name: Install Haxelib
         run: |
           haxelib setup ~/haxelib
+
+          sudo apt-get install -qq libgl1-mesa-dev libglu1-mesa-dev libpulse-dev g++ g++-multilib gcc-multilib libasound2-dev libx11-dev libxext-dev libxi-dev libxrandr-dev libxinerama-dev
+          curl -LO https://github.com/HaxeFoundation/hxcpp/releases/download/v4.3.66/hxcpp-4.3.66.zip
+          haxelib install ./hxcpp-4.3.66.zip --quiet
           haxelib install flixel
-          haxelib install lime
-          haxelib install hxcpp 4.2.1
           haxelib install lime
           haxelib git hxflac https://github.com/GreenColdTea/justAthing.git
           haxelib run lime setup android
