@@ -104,7 +104,7 @@ jobs:
           haxelib setup ~/haxelib
           haxelib install flixel
           haxelib install lime
-          haxelib install hxcpp
+          haxelib install hxcpp 4.2.5
           haxelib install lime
           haxelib git hxflac https://github.com/GreenColdTea/justAthing.git
           haxelib run lime setup android
@@ -143,7 +143,7 @@ jobs:
           haxelib run lime setup ios
           haxelib list
       - name: Compile Test Project iOS
-        run: haxelib run lime build ${{ github.workspace }}/test/Project.xml ios-simulator
+        run: haxelib run lime build ${{ github.workspace }}/test/Project.xml ios -Dios-development-team=""
       - name: Publish iOS Artifact
         uses: actions/upload-artifact@main
         with:
